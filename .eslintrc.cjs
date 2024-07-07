@@ -1,11 +1,11 @@
 module.exports = {
-  "root": true,
-  "env": {
-    "browser": true,
-    "es2021": true,
+  root: true,
+  env: {
+    browser: true,
+    es2021: true,
     jest: true,
   },
-  "extends": [
+  extends: [
     "next/core-web-vitals",
     "prettier",
     "eslint:recommended",
@@ -14,10 +14,10 @@ module.exports = {
     "plugin:jsx-a11y/recommended",
     "plugin:jest-dom/recommended",
     "plugin:testing-library/react",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
   ],
-  "ignorePatterns": ["dist", ".eslintrc.cjs"],
-  "parserOptions": {
+  ignorePatterns: ["dist", ".eslintrc.cjs"],
+  parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
     ecmaFeatures: { jsx: true },
@@ -34,5 +34,5 @@ module.exports = {
       },
     ],
     "react/jsx-no-target-blank": "off",
-  }
+  },
 }
