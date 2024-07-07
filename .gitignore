@@ -35,5 +35,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Env
+.env
+.env.local
+.env.development
+.env.production
+
 # WebStorm
 .idea/
