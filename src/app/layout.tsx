@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { type ReactNode } from "react"
 import "./globals.css"
-import PrelineScript from "@src/components/PrelineScript"
+import PrelineScript from "@src/app/components/PrelineScript"
 
 const inter = Inter({ subsets: ["latin"] })
 
