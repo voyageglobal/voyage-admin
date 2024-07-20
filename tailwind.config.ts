@@ -1,10 +1,7 @@
 import type { Config } from "tailwindcss"
 
 const config: Config = {
-  content: [
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/preline/preline.js",
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       backgroundImage: {
@@ -18,10 +15,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    require("@tailwindcss/typography"),
-    require("@tailwindcss/forms"),
-    require("preline/plugin"),
-  ],
+  plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms")],
 }
 export default config
