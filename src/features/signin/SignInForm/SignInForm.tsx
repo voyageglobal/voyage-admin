@@ -1,19 +1,15 @@
-"use client"
-import { FormEvent, memo, useCallback } from "react"
+import { memo, useCallback } from "react"
 import { EmailInput, PasswordInput, SigninButton } from "@src/entities/signin"
 import { Typography } from "@src/shared/components"
+import { signin } from "@src/features/signin/SignInForm/actions"
 
 export type SignInFormProps = {}
 
 function SignInForm(props: SignInFormProps) {
-  const handleSubmit = useCallback((event: FormEvent) => {
-    event.preventDefault()
-  }, [])
-
   return (
     <form
+      action={signin}
       className={"flex h-full w-full flex-col items-start justify-center"}
-      onSubmit={handleSubmit}
     >
       <Typography variant={"h1"} className={"pb-8"}>
         Welcome back
@@ -28,7 +24,7 @@ function SignInForm(props: SignInFormProps) {
         <PasswordInput />
       </div>
       <div className={"w-full"}>
-        <SigninButton onClick={() => {}} fullWidth={true} />
+        <SigninButton fullWidth={true} />
       </div>
     </form>
   )

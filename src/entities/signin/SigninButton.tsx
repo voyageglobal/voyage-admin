@@ -3,7 +3,7 @@ import cc from "classcat"
 import { Typography } from "@src/shared/components"
 
 export type SigninButtonProps = {
-  onClick: (event: MouseEvent<HTMLButtonElement>) => void
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void
   fullWidth?: boolean
 }
 

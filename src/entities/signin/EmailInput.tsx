@@ -17,7 +17,8 @@ function EmailInput(props: EmailInputProps) {
         className={
           "input w-full border-none bg-neutral-900/40 p-3.5 font-body1 text-xl text-white placeholder-green-50 disabled:pointer-events-none disabled:opacity-50"
         }
-        type="email"
+        // type="email"
+        name="email"
         required={true}
         placeholder="Email"
       />
