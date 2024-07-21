@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "classcat": "^5.0.5",
+    "lodash": "^4.17.21",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18"
@@ -19,6 +20,7 @@
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.13",
     "@testing-library/dom": "^10.3.1",
+    "@types/lodash": "^4.17.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

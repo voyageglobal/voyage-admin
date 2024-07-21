@@ -1,25 +1,32 @@
-import { memo, useState } from "react"
+import { memo, useCallback, useState } from "react"
 import PasswordInputToggle from "./PasswordInputToggle"
+import { uniqueId } from "lodash"
 
-const passwordInputId = "password-input"
+export type PasswordInputProps = {
+  inputId?: string
+}
 
-function PasswordInput() {
-  const [password, setPassword] = useState("")
+function PasswordInput(props: PasswordInputProps) {
+  const { inputId = uniqueId("password-input-") } = props
+
+  const [showPassword, togglePasswordVisibility] = useState(false)
+
+  const handleTogglePasswordVisibility = useCallback(() => {
+    togglePasswordVisibility(prevState => !prevState)
+  }, [])
 
   return (
     <div className={"relative"}>
       <input
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        id={passwordInputId}
-        type="password"
+        id={inputId}
+        type={showPassword ? "text" : "password"}
         className={
-          "block w-full rounded-lg border-gray-200 px-3 py-4 font-body1 text-xl text-white placeholder-green-50 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:bg-neutral-900/40"
+          "input input-bordered w-full border-gray-200 bg-neutral-900/40 p-3.5 font-body1 text-xl text-white placeholder-green-50 disabled:pointer-events-none disabled:opacity-50"
         }
         required={true}
         placeholder="Password"
       />
-      <PasswordInputToggle inputId={passwordInputId} />
+      <PasswordInputToggle onClick={handleTogglePasswordVisibility} />
     </div>
   )
 }

@@ -14,6 +14,7 @@ Useful documentation can be found in the [docs](./docs) folder.
 
 - Next.js
 - React
+- DaisyUI
 - TypeScript
 - Jest
 - React Testing Library

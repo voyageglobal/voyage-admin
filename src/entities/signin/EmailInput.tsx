@@ -1,16 +1,23 @@
 import { memo } from "react"
 import InputIcon from "./email-input-icon.svg"
 import Image from "next/image"
+import { uniqueId } from "lodash"
 
-function EmailInput() {
+export type EmailInputProps = {
+  inputId?: string
+}
+
+function EmailInput(props: EmailInputProps) {
+  const { inputId = uniqueId("email-input-") } = props
+
   return (
-    <div className={"relative"}>
+    <div className="relative">
       <input
-        id="email"
-        type="email"
+        id={inputId}
         className={
-          "block w-full rounded-lg border-gray-200 px-3 py-4 font-body1 text-xl text-white placeholder-green-50 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:bg-neutral-900/40"
+          "input w-full border-none bg-neutral-900/40 p-3.5 font-body1 text-xl text-white placeholder-green-50 disabled:pointer-events-none disabled:opacity-50"
         }
+        type="email"
         required={true}
         placeholder="Email"
       />
