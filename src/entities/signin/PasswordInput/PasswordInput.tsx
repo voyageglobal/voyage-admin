@@ -1,6 +1,7 @@
 "use client"
 import { memo, useCallback, useState } from "react"
 import PasswordInputToggle from "./PasswordInputToggle"
+import { FORM_FIELD_NAME } from "./constants"
 import { uniqueId } from "lodash"
 
 export type PasswordInputProps = {
@@ -24,8 +25,8 @@ function PasswordInput(props: PasswordInputProps) {
         className={
           "input input-bordered w-full border-gray-200 bg-neutral-900/40 p-3.5 font-body1 text-xl text-white placeholder-green-50 disabled:pointer-events-none disabled:opacity-50"
         }
+        name={FORM_FIELD_NAME}
         required={true}
-        name={"password"}
         placeholder="Password"
       />
       <PasswordInputToggle onClick={handleTogglePasswordVisibility} />

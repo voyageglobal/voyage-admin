@@ -1,14 +1,31 @@
-import { memo, useCallback } from "react"
-import { EmailInput, PasswordInput, SigninButton } from "@src/entities/signin"
+"use client"
+
+import { memo } from "react"
+import { useFormState } from "react-dom"
+import {
+  PasswordInput,
+  SigninErrorAlert,
+  UsernameInput,
+} from "@src/entities/signin"
 import { Typography } from "@src/shared/components"
-import { signin } from "@src/features/signin/SignInForm/actions"
+import { authenticateAction } from "./actions"
+import SigninFormSubmit from "./SigninFormSubmit"
 
 export type SignInFormProps = {}
 
+export const FORM_NAME = "signin-form"
+
 function SignInForm(props: SignInFormProps) {
+  const [formState, formAction] = useFormState(authenticateAction, {
+    errorMessage: null,
+  })
+  const { errorMessage } = formState ?? {}
+
   return (
     <form
-      action={signin}
+      id={FORM_NAME}
+      action={formAction}
+      name={FORM_NAME}
       className={"flex h-full w-full flex-col items-start justify-center"}
     >
       <Typography variant={"h1"} className={"pb-8"}>
@@ -18,13 +35,18 @@ function SignInForm(props: SignInFormProps) {
         Please enter your details
       </Typography>
       <div className={"w-full pb-3"}>
-        <EmailInput />
+        <UsernameInput />
       </div>
       <div className={"w-full pb-11"}>
         <PasswordInput />
       </div>
+      {errorMessage && (
+        <div className={"w-full pb-5"}>
+          <SigninErrorAlert message={errorMessage} />
+        </div>
+      )}
       <div className={"w-full"}>
-        <SigninButton fullWidth={true} />
+        <SigninFormSubmit />
       </div>
     </form>
   )

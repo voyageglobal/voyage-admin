@@ -1,14 +1,22 @@
-import React, { memo, type MouseEvent } from "react"
+import React, { type ButtonHTMLAttributes, memo, type MouseEvent } from "react"
 import cc from "classcat"
 import { Typography } from "@src/shared/components"
 
 export type SigninButtonProps = {
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void
   fullWidth?: boolean
-}
+  pending?: boolean
+} & ButtonHTMLAttributes<HTMLButtonElement>
 
 function SigninButton(props: SigninButtonProps) {
-  const { onClick, fullWidth = false } = props
+  const {
+    type,
+    onClick,
+    fullWidth = false,
+    className,
+    pending,
+    ...restProps
+  } = props
 
   return (
     <button
@@ -19,7 +27,10 @@ function SigninButton(props: SigninButtonProps) {
         {
           "w-full": fullWidth,
         },
+        className,
       ])}
+      aria-disabled={pending || restProps.disabled}
+      {...restProps}
     >
       <Typography variant={"button1"}>Sign In</Typography>
     </button>
