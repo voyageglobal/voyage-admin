@@ -1,8 +1,8 @@
-"use server"
-
-import { signinService } from "@src/entities/signin"
+import { signIn } from "next-auth/react"
 import { validateSigninForm } from "@src/entities/signin/validation"
 import { transformSigninFormData } from "@src/entities/signin/transformers"
+import { CREDENTIALS_PROVIDER_NAME } from "@src/app/api/auth/[...nextauth]/route"
+import { ROUTES } from "@src/shared/routes"
 
 export type FormState = {
   errorMessage: string | null
@@ -23,7 +23,11 @@ export async function authenticateAction(
   }
 
   try {
-    const result = await signinService.signin(body)
+    const res = await signIn(CREDENTIALS_PROVIDER_NAME, {
+      username: body.username,
+      password: body.password,
+      callbackUrl: ROUTES.DASHBOARD,
+    })
 
     return {
       errorMessage: null,

@@ -1,0 +1,53 @@
+import NextAuth, { type User } from "next-auth"
+import CredentialsProvider from "next-auth/providers/credentials"
+import { ROUTES } from "@src/shared/routes"
+import { signinService } from "@src/entities/signin"
+
+const SESSION_MAX_AGE = 7 * 24 * 60 * 60 // 7 days
+export const CREDENTIALS_PROVIDER_NAME = "credentials"
+
+const handler = NextAuth({
+  session: {
+    strategy: "jwt",
+    maxAge: SESSION_MAX_AGE,
+  },
+  providers: [
+    CredentialsProvider({
+      id: "credentials",
+      name: CREDENTIALS_PROVIDER_NAME,
+      type: "credentials",
+      credentials: {
+        username: { label: "Username", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
+      authorize: async (credentials, req) => {
+        if (!credentials?.username || !credentials?.password) {
+          return null
+        }
+
+        try {
+          const authData = await signinService.signin({
+            username: credentials.username,
+            password: credentials.password,
+          })
+
+          const user: User = {
+            id: authData.username,
+            name: authData.username,
+            email: "",
+            image: "",
+          }
+
+          return user
+        } catch (error) {
+          return null
+        }
+      },
+    }),
+  ],
+  pages: {
+    signIn: ROUTES.LOGIN,
+  },
+})
+
+export { handler as GET, handler as POST }
