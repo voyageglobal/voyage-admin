@@ -7,6 +7,7 @@ module.exports = {
   },
   extends: [
     "next/core-web-vitals",
+    "next",
     "prettier",
     "eslint:recommended",
     "plugin:react/recommended",
@@ -34,5 +35,6 @@ module.exports = {
       },
     ],
     "react/jsx-no-target-blank": "off",
+    "no-unused-vars": "warn",
   },
 }
