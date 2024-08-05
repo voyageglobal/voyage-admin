@@ -1,5 +1,7 @@
 # Voyage Admin
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3c5f0c98-194c-402e-8c7f-a8b7fdccae12/deploy-status)](https://app.netlify.com/sites/voyage-admin/deploys)
+
 ## Description
 
 The admin web app for Voyage.
