@@ -5,11 +5,11 @@ import { body1, heading1 } from "@src/shared/fonts"
 import "../globals.css"
 
 export const metadata: Metadata = {
-  title: "Voyage Admin | Login",
+  title: "Voyage Admin | Dashboard",
   description: "Voyage Admin",
 }
 
-export default function LoginLayout({
+export default function DashboardLayout({
   children,
 }: Readonly<{
   children: ReactNode
