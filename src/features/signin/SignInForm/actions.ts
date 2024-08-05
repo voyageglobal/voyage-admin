@@ -26,6 +26,7 @@ export async function authenticateAction(
     const res = await signIn(CREDENTIALS_PROVIDER_NAME, {
       username: body.username,
       password: body.password,
+      redirect: true,
       callbackUrl: ROUTES.DASHBOARD,
     })
 

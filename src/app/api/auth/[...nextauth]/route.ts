@@ -3,7 +3,12 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import { ROUTES } from "@src/shared/routes"
 import { signinService } from "@src/entities/signin"
 
-const SESSION_MAX_AGE = 7 * 24 * 60 * 60 // 7 days
+export type ExtendedUser = User & {
+  accessToken: string | null
+  refreshToken: string | null
+}
+
+export const SESSION_MAX_AGE = 7 * 24 * 60 * 60 // 7 days
 export const CREDENTIALS_PROVIDER_NAME = "credentials"
 
 const handler = NextAuth({
@@ -20,7 +25,7 @@ const handler = NextAuth({
         username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      authorize: async (credentials, req) => {
+      authorize: async (credentials): Promise<ExtendedUser | null> => {
         if (!credentials?.username || !credentials?.password) {
           return null
         }
@@ -31,11 +36,13 @@ const handler = NextAuth({
             password: credentials.password,
           })
 
-          const user: User = {
-            id: authData.username,
+          const user: ExtendedUser = {
             name: authData.username,
-            email: "",
             image: "",
+            email: "",
+            id: authData.username,
+            accessToken: authData.accessToken,
+            refreshToken: authData.refreshToken,
           }
 
           return user

@@ -1,14 +1,13 @@
-import { getServerSession } from "next-auth"
+import { redirect } from "next/navigation"
+import { ROUTES } from "@src/shared/routes"
 
 export default async function Root() {
-  const session = await getServerSession()
-
-  console.log("session", session)
+  // Redirect to the dashboard page in any case
+  redirect(ROUTES.DASHBOARD)
 
   return (
     <main>
       <p className={"prose text-4xl dark:text-white"}>Root</p>
-      <p>User: {session?.user?.name}</p>
     </main>
   )
 }
