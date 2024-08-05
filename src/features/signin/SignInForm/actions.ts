@@ -34,7 +34,7 @@ export async function authenticateAction(
     }
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Sign in failed due to an error", error.message)
+      console.error("Sign in failed due to an error.", error.message)
       return {
         errorMessage: error.message,
       }
