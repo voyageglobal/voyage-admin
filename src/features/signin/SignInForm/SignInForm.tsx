@@ -29,7 +29,7 @@ function SignInForm(props: SignInFormProps) {
       className={"flex h-full w-full flex-col items-start justify-center"}
     >
       <Typography variant={"h1"} className={"pb-8"}>
-        Welcome back
+        Welcome back!
       </Typography>
       <Typography variant={"subtitle1"} className={"pb-7"}>
         Please enter your details
