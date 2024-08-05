@@ -9,7 +9,6 @@ export type ExtendedUser = User & {
 }
 
 const SESSION_MAX_AGE = 7 * 24 * 60 * 60 // 7 days
-const CREDENTIALS_PROVIDER_NAME = "credentials"
 
 const handler = NextAuth({
   session: {
@@ -19,7 +18,7 @@ const handler = NextAuth({
   providers: [
     CredentialsProvider({
       id: "credentials",
-      name: CREDENTIALS_PROVIDER_NAME,
+      name: "credentials",
       type: "credentials",
       credentials: {
         username: { label: "Username", type: "text" },

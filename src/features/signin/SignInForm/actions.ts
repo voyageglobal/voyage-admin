@@ -1,7 +1,6 @@
 import { signIn } from "next-auth/react"
 import { validateSigninForm } from "@src/entities/signin/validation"
 import { transformSigninFormData } from "@src/entities/signin/transformers"
-import { CREDENTIALS_PROVIDER_NAME } from "@src/app/api/auth/[...nextauth]/route"
 import { ROUTES } from "@src/shared/routes"
 
 export type FormState = {
@@ -23,7 +22,7 @@ export async function authenticateAction(
   }
 
   try {
-    const res = await signIn(CREDENTIALS_PROVIDER_NAME, {
+    await signIn("credentials", {
       username: body.username,
       password: body.password,
       redirect: true,
