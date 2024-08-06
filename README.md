@@ -1,6 +1,6 @@
 # Voyage Admin
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/3c5f0c98-194c-402e-8c7f-a8b7fdccae12/deploy-status)](https://app.netlify.com/sites/voyage-admin/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b5d5c844-ac91-449d-b399-e6f46166a1cb/deploy-status)](https://app.netlify.com/sites/voyage-admin/deploys)
 
 ## Description
 
