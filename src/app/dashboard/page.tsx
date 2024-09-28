@@ -1,7 +1,14 @@
-export type HomePageProps = {}
+import AppHeader from "@src/features/appHeader/AppHeader"
 
-function DashboardPage(props: HomePageProps) {
-  return <section className={"mx-auto flex h-full"}>DASHBOARD</section>
+export type DashboardPageProps = {}
+
+function DashboardPage(props: DashboardPageProps) {
+  return (
+    <section className={"mx-auto flex h-full flex-col"}>
+      <AppHeader />
+      <div>Dashboard</div>
+    </section>
+  )
 }
 
 export default DashboardPage
