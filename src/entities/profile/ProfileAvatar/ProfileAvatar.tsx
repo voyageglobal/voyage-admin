@@ -9,7 +9,7 @@ function ProfileAvatar(props: ProfileAvatarProps) {
   const { imageUrl } = props
 
   return (
-    <button className={"btn btn-circle btn-ghost"}>
+    <button className={"btn btn-circle btn-ghost h-full w-auto"}>
       <Avatar imageUrl={imageUrl} size={"large"} />
     </button>
   )
