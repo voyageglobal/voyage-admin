@@ -1,5 +1,5 @@
 import { memo } from "react"
-import ProfileAvatar from "@src/entities/profile/ProfileAvatar/ProfileAvatar"
+import ProfileAvatar from "@src/entities/profile/ProfileAvatar"
 import AppLogo from "@src/entities/logo/AppLogo"
 
 export type AppHeaderProps = {}
