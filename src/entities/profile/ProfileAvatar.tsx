@@ -1,6 +1,6 @@
 "use client"
 import Avatar from "@src/shared/components/Avatar/Avatar"
-import { memo, useState } from "react"
+import { memo, useRef, useState } from "react"
 import ProfileAvatarMenu from "@src/entities/profile/ProfileAvatarMenu"
 
 export type ProfileAvatarProps = {
@@ -10,6 +10,8 @@ export type ProfileAvatarProps = {
 function ProfileAvatar(props: ProfileAvatarProps) {
   const { imageUrl } = props
 
+  const menuRef = useRef<HTMLUListElement>(null)
+
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
@@ -18,12 +20,27 @@ function ProfileAvatar(props: ProfileAvatarProps) {
         onClick={() => {
           setIsMenuOpen(prev => !prev)
         }}
-        onBlur={() => setIsMenuOpen(false)}
+        onBlur={event => {
+          const menuContainer = menuRef.current
+
+          if (menuContainer) {
+            const isFocusOutsideMenu = !menuContainer.contains(
+              event.relatedTarget,
+            )
+            const isFocusOutsideButton = !event.currentTarget.contains(
+              event.relatedTarget,
+            )
+
+            if (isFocusOutsideButton && isFocusOutsideMenu) {
+              setIsMenuOpen(false)
+            }
+          }
+        }}
         className={"btn btn-circle btn-ghost h-full w-auto"}
       >
         <Avatar imageUrl={imageUrl} size={"large"} />
       </button>
-      {isMenuOpen && <ProfileAvatarMenu />}
+      {isMenuOpen && <ProfileAvatarMenu ref={menuRef} />}
     </div>
   )
 }

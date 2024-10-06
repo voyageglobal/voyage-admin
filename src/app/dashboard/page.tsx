@@ -6,7 +6,7 @@ function DashboardPage(props: DashboardPageProps) {
   return (
     <section className={"mx-auto flex h-full flex-col"}>
       <AppHeader />
-      <div>Dashboard</div>
+      <div>Dashboard Page Content</div>
     </section>
   )
 }
