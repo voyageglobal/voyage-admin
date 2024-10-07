@@ -12,3 +12,16 @@ export type TypographyVariants =
   | "caption"
   | "overline"
   | "button1"
+  | "widgetTitle"
+  | "widgetSubtitle"
+  | "widgetContent"
+
+export type SupportedTypographyTag =
+  | "span"
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "h5"
+  | "h6"
+  | "p"
