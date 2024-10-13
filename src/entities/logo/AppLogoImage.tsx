@@ -25,7 +25,12 @@ function AppLogoImage(props: AppLogoImageProps) {
       className={cc([sizeClass, "avatar h-full"])}
       data-testid={"app-logo-img"}
     >
-      <Image src={APP_LOGO_URL} fill={true} alt={""} objectFit={"contain"} />
+      <Image
+        src={APP_LOGO_URL}
+        fill={true}
+        alt={""}
+        style={{ objectFit: "contain" }}
+      />
     </div>
   )
 }

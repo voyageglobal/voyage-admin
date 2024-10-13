@@ -6,8 +6,6 @@ module.exports = {
     jest: true,
   },
   extends: [
-    "next/core-web-vitals",
-    "next",
     "prettier",
     "eslint:recommended",
     "plugin:react/recommended",
@@ -16,6 +14,8 @@ module.exports = {
     "plugin:jest-dom/recommended",
     "plugin:testing-library/react",
     "plugin:prettier/recommended",
+    "next/core-web-vitals",
+    "next",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parserOptions: {
