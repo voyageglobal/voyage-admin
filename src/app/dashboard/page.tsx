@@ -1,25 +1,29 @@
 import AppHeader from "@src/features/appHeader/AppHeader"
-import TotalGuidesNumberWidget from "@src/widgets/TotalGuidesNumberWidget/TotalGuidesNumberWidget"
+import TotalGuidesNumberWidget from "@src/widgets/SingleNumberWidgets/TotalGuidesNumberWidget"
+import TotalUsersNumberWidget from "@src/widgets/SingleNumberWidgets/TotalUsersNumberWidget"
+import TotalCitiesNumberWidget from "@src/widgets/SingleNumberWidgets/TotalCitiesNumberWidget"
+import TotalCountriesNumberWidget from "@src/widgets/SingleNumberWidgets/TotalCountriesNumberWidget"
 
 export type DashboardPageProps = {}
 
-function DashboardPage(props: DashboardPageProps) {
+export default async function DashboardPage(props: DashboardPageProps) {
   return (
     <section className={"mx-auto flex h-full flex-col"}>
       <AppHeader />
-      <div className={"grid grid-cols-3 gap-4"}>
-        <div className={"max-w-sm"}>
-          <TotalGuidesNumberWidget />
-        </div>
+      <div className={"grid grid-cols-2 gap-6 pt-6"}>
         <div>
           <TotalGuidesNumberWidget />
         </div>
         <div>
-          <TotalGuidesNumberWidget />
+          <TotalUsersNumberWidget />
+        </div>
+        <div>
+          <TotalCitiesNumberWidget />
+        </div>
+        <div>
+          <TotalCountriesNumberWidget />
         </div>
       </div>
     </section>
   )
 }
-
-export default DashboardPage

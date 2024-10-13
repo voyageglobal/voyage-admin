@@ -4,7 +4,7 @@ import { Typography } from "@src/shared/components"
 export type SingleNumberWidgetHeaderProps = {
   title: string | ReactElement
   subtitle?: string | ReactElement
-  icon?: ReactElement
+  icon?: string | ReactElement
 }
 
 function SingleNumberWidgetHeader(props: SingleNumberWidgetHeaderProps) {

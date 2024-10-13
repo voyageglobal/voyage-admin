@@ -1,13 +1,13 @@
 import { memo, type ReactElement } from "react"
 import SingleNumberWidgetHeader from "./SingleNumberWidgetHeader"
 import SingleNumberWidgetContent from "./SingleNumberWidgetContent"
+import { type WidgetProps } from "@src/features/widget/types"
 
 export type SingleNumberWidgetProps = {
-  data: number | string
   title: string | ReactElement
   subtitle?: string | ReactElement
-  icon?: ReactElement
-}
+  icon?: string | ReactElement
+} & WidgetProps<number | string>
 
 function SingleNumberWidget(props: SingleNumberWidgetProps) {
   const { data, title, subtitle, icon } = props
