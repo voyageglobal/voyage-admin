@@ -10,6 +10,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@tanstack/react-table": "^8.20.5",
     "classcat": "^5.0.5",
     "lodash": "^4.17.21",
     "next": "14.2.13",
