@@ -14,12 +14,16 @@ Useful documentation can be found in the [docs](./docs) folder.
 
 ### Application stack
 
-- Next.js
+- Next.js (App Router)
 - React
+- TailwindCSS
 - DaisyUI
 - TypeScript
-- Jest
+- @tanstack/react-table
+- @tanstack/react-query
+- Jest?
 - React Testing Library
+- Playwright
 
 ## Installation
 
