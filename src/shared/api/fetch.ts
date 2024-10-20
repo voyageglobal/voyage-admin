@@ -1,4 +1,4 @@
-import { getEnvironmentVariables } from "@src/config"
+import { getEnvironmentVariables } from "@src/config/environment"
 import { type ApiResponse } from "@src/shared/api/types"
 
 export function getApiUrl(path: string): URL {
