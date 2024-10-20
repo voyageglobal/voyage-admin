@@ -1,7 +1,7 @@
 import { memo, type ReactElement } from "react"
 import SingleNumberWidgetHeader from "./SingleNumberWidgetHeader"
 import SingleNumberWidgetContent from "./SingleNumberWidgetContent"
-import { type WidgetProps } from "@src/features/widget/types"
+import { type WidgetProps } from "@src/shared/components/Widget/types"
 
 export type SingleNumberWidgetProps = {
   title: string | ReactElement
