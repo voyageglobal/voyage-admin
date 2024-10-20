@@ -6,9 +6,9 @@ export type GuidesPageProps = {}
 
 function GuidesPage(props: GuidesPageProps) {
   return (
-    <div>
+    <div className={"p-4"}>
       <Typography variant={"h1"}>Guides</Typography>
-      <div>
+      <div className={"pt-4"}>
         <GuidesTable />
       </div>
     </div>

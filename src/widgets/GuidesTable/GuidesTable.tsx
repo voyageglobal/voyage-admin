@@ -2,14 +2,14 @@
 import { memo, useMemo, useState } from "react"
 import {
   createColumnHelper,
-  flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table"
+import DataTable from "@src/features/dataTable/DataTable"
 
 export type GuidesTableProps = {}
 
-type Guide = {
+type GuideTableDataModel = {
   id: string
   title: string
   author: string
@@ -17,7 +17,7 @@ type Guide = {
   updatedAt: string
 }
 
-const mockGuides: Guide[] = [
+const mockGuides: GuideTableDataModel[] = [
   {
     id: "1",
     title: "Guide 1",
@@ -32,12 +32,19 @@ const mockGuides: Guide[] = [
     createdAt: "2021-01-01",
     updatedAt: "2021-01-01",
   },
+  {
+    id: "3",
+    title: "Guide 3",
+    author: "Test User 2",
+    createdAt: "2021-01-01",
+    updatedAt: "2021-01-01",
+  },
 ]
 
-const columnHelper = createColumnHelper<Guide>()
+const columnHelper = createColumnHelper<GuideTableDataModel>()
 
 function GuidesTable(props: GuidesTableProps) {
-  const [data, setData] = useState<Guide[]>(mockGuides)
+  const [data, setData] = useState<GuideTableDataModel[]>(mockGuides)
 
   const columns = useMemo(() => {
     return [
@@ -67,56 +74,12 @@ function GuidesTable(props: GuidesTableProps) {
   const table = useReactTable({
     data,
     columns,
-    getCoreRowModel: getCoreRowModel<Guide>(),
+    getCoreRowModel: getCoreRowModel<GuideTableDataModel>(),
   })
 
   return (
-    <div>
-      <table>
-        <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
-                <th key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map(row => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map(cell => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-        <tfoot>
-          {table.getFooterGroups().map(footerGroup => (
-            <tr key={footerGroup.id}>
-              {footerGroup.headers.map(header => (
-                <th key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.footer,
-                        header.getContext(),
-                      )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </tfoot>
-      </table>
+    <div className={"p-4"} data-testid={"guides-table"}>
+      <DataTable table={table} />
     </div>
   )
 }
