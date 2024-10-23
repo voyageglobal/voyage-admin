@@ -3,3 +3,10 @@ export type QueryResult<TData> = {
   error: Error | null
   isLoading: boolean
 }
+
+export type PaginatedQueryResult<TData> = QueryResult<TData[]> & {
+  hasMore: boolean
+  total: number
+  fetchNextPage: () => void
+  isNextPageLoading: boolean
+}

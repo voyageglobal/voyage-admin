@@ -1,35 +1,74 @@
 import { useInfiniteQuery } from "@tanstack/react-query"
 import { type Guide, guidesService } from "@src/entities/guides"
-import { type QueryResult } from "@src/shared/hooks/clientQuery"
+import { type PaginatedQueryResult } from "@src/shared/hooks/clientQuery"
 import { useMemo } from "react"
+import {
+  type FetchGuidesParams,
+  DEFAULT_GUIDE_PAGE_SIZE,
+  DEFAULT_ORDER_BY,
+  DEFAULT_ORDER_DIRECTION,
+  DEFAULT_SEARCH_STRING,
+} from "@src/entities/guides/guidesService"
 
 export const GUIDES_QUERY_KEY = "guides"
 
-export function useGuides(): QueryResult<Guide[]> {
-  const result = useInfiniteQuery({
-    queryKey: [GUIDES_QUERY_KEY],
-    queryFn: async ({ pageParam }) => guidesService.fetchGuides(),
+export type UseGuidesParams = Pick<
+  FetchGuidesParams,
+  "orderBy" | "orderDirection" | "pageSize" | "searchString"
+>
+
+export function useGuides(
+  params: UseGuidesParams = {},
+): PaginatedQueryResult<Guide> {
+  const {
+    pageSize = DEFAULT_GUIDE_PAGE_SIZE,
+    orderBy = DEFAULT_ORDER_BY,
+    orderDirection = DEFAULT_ORDER_DIRECTION,
+    searchString = DEFAULT_SEARCH_STRING,
+  } = params ?? {}
+
+  const {
+    fetchNextPage,
+    hasNextPage,
+    error,
+    data,
+    isFetchingNextPage,
+    isLoading,
+  } = useInfiniteQuery({
+    queryKey: [GUIDES_QUERY_KEY, searchString, orderBy, orderDirection],
+    queryFn: async ({ pageParam }) =>
+      guidesService.fetchGuides({
+        page: pageParam,
+        pageSize,
+        orderBy,
+        orderDirection,
+        searchString,
+      }),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
-      // TODO: Add pagination here once backend supports it
-      return undefined
+      return lastPage.hasMore ? allPages.length + 1 : undefined
     },
   })
 
   const { items, total } = useMemo(() => {
-    const pages = result.data?.pages || []
-    const items: Guide[] = [] // TODO: Flatten pages here
-    const totalItems = 0 // result.data?.total || 0
+    const pages = data?.pages || []
+    const items: Guide[] = pages.flatMap(page => page.items)
+    const lastPageIndex = pages.length - 1
+    const totalItems = data?.pages?.[lastPageIndex]?.total ?? 0
 
     return {
       items,
       total: totalItems,
     }
-  }, [result.data?.pages])
+  }, [data?.pages])
 
   return {
-    isLoading: result.isLoading,
     data: items,
-    error: result.error || null,
+    isLoading: isLoading,
+    error: error || null,
+    total,
+    hasMore: hasNextPage,
+    fetchNextPage: () => fetchNextPage(),
+    isNextPageLoading: isFetchingNextPage,
   }
 }
