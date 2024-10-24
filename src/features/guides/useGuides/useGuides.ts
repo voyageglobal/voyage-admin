@@ -1,9 +1,13 @@
-import { useInfiniteQuery } from "@tanstack/react-query"
+import {
+  useInfiniteQuery,
+  usePrefetchInfiniteQuery,
+} from "@tanstack/react-query"
 import { type Guide, guidesService } from "@src/entities/guides"
 import { type PaginatedQueryResult } from "@src/shared/hooks/clientQuery"
 import { useMemo } from "react"
 import {
   type FetchGuidesParams,
+  DEFAULT_PAGE,
   DEFAULT_GUIDE_PAGE_SIZE,
   DEFAULT_ORDER_BY,
   DEFAULT_ORDER_DIRECTION,
@@ -36,7 +40,7 @@ export function useGuides(
     isLoading,
   } = useInfiniteQuery({
     queryKey: [GUIDES_QUERY_KEY, searchString, orderBy, orderDirection],
-    queryFn: async ({ pageParam }) =>
+    queryFn: ({ pageParam }) =>
       guidesService.fetchGuides({
         page: pageParam,
         pageSize,
@@ -44,7 +48,7 @@ export function useGuides(
         orderDirection,
         searchString,
       }),
-    initialPageParam: 1,
+    initialPageParam: DEFAULT_PAGE,
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.hasMore ? allPages.length + 1 : undefined
     },
@@ -54,7 +58,7 @@ export function useGuides(
     const pages = data?.pages || []
     const items: Guide[] = pages.flatMap(page => page.items)
     const lastPageIndex = pages.length - 1
-    const totalItems = data?.pages?.[lastPageIndex]?.total ?? 0
+    const totalItems = pages?.[lastPageIndex]?.total ?? 0
 
     return {
       items,

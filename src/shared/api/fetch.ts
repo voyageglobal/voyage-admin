@@ -2,7 +2,10 @@ import { getEnvironmentVariables } from "@src/config/environment"
 import { type ApiResponse } from "@src/shared/api/types"
 
 export function getApiUrl(path: string): URL {
-  return new URL(path, getEnvironmentVariables().BASE_API_URL)
+  const { BASE_API_URL } = getEnvironmentVariables()
+  const url = new URL(path, BASE_API_URL)
+
+  return url
 }
 
 export function isSuccess(res: Response, data: ApiResponse<unknown>): boolean {
