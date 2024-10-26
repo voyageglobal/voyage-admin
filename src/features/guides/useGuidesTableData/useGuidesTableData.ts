@@ -20,6 +20,21 @@ const columns = [
     header: "Author",
     cell: row => row.getValue(),
   }),
+  columnHelper.accessor("categories", {
+    id: "categories",
+    header: "Categories",
+    cell: row => row.getValue(),
+  }),
+  columnHelper.accessor("countries", {
+    id: "countries",
+    header: "Countries",
+    cell: row => row.getValue(),
+  }),
+  columnHelper.accessor("cities", {
+    id: "cities",
+    header: "Cities",
+    cell: row => row.getValue(),
+  }),
   columnHelper.accessor("createdAt", {
     id: "createdAt",
     header: "Created At",

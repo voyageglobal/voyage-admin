@@ -10,6 +10,12 @@ export function transformGuideToGuideTableData(
     const tableRow: GuideTableDataModel = {
       id: guide.id,
       title: guide.name,
+      visitedDateStart: guide.visitedDateStart,
+      visitedDateEnd: guide.visitedDateEnd,
+      countries: guide.countries.map(country => country.name).join(", "),
+      cities: guide.cities.map(city => city.name).join(", "),
+      categories: guide.categories.map(category => category.name).join(", "),
+      // TODO: Fill in these fields later
       author: DEFAULT_AUTHOR,
       createdAt: "",
       updatedAt: "",

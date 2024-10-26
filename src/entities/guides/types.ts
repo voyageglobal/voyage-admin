@@ -4,6 +4,17 @@ export type GuideCategory = {
   imageUrl: string
 }
 
+export type GuideCity = {
+  id: string
+  name: string
+}
+
+export type GuideCountry = {
+  id: string
+  name: string
+  flag: string
+}
+
 export type Guide = {
   id: string
   name: string
@@ -11,4 +22,6 @@ export type Guide = {
   visitedDateStart: string
   visitedDateEnd: string
   categories: GuideCategory[]
+  cities: GuideCity[]
+  countries: GuideCountry[]
 }
