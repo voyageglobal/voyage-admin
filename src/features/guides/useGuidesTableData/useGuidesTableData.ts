@@ -4,7 +4,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { useMemo } from "react"
+import { useCallback, useMemo } from "react"
 import { transformGuideToGuideTableData } from "./transformers"
 import { type GuideTableDataModel } from "./types"
 
@@ -48,20 +48,38 @@ const columns = [
 ]
 
 export function useGuidesTableData() {
-  const { data, isLoading } = useGuides()
+  const { data, isLoading, total, pageSize, currentPage, fetchNextPage } =
+    useGuides()
 
   const tableData = useMemo(() => {
     return transformGuideToGuideTableData(data ?? [])
   }, [data])
 
+  const handlePaginationChange = useCallback(() => {
+    fetchNextPage({ page: currentPage + 1 })
+  }, [currentPage, fetchNextPage])
+
   const table = useReactTable({
     data: tableData,
     columns: columns,
     getCoreRowModel: getCoreRowModel<GuideTableDataModel>(),
+    rowCount: total,
+    debugTable: true,
+    manualPagination: true,
+    autoResetPageIndex: false,
+    onPaginationChange: handlePaginationChange,
+    state: {
+      pagination: {
+        pageIndex: currentPage - 1 || 0,
+        pageSize: pageSize,
+      },
+    },
   })
 
   return {
     table,
     isLoading,
+    currentPage,
+    total,
   }
 }

@@ -7,6 +7,9 @@ export type QueryResult<TData> = {
 export type PaginatedQueryResult<TData> = QueryResult<TData[]> & {
   hasMore: boolean
   total: number
-  fetchNextPage: () => void
+  currentPage: number
+  pageSize: number
+  fetchNextPage: ({ page }: { page: number }) => void
+  fetchPrevPage: ({ page }: { page: number }) => void
   isNextPageLoading: boolean
 }

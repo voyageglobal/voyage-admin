@@ -3,14 +3,17 @@ import { type Table } from "@tanstack/react-table"
 import DataTableHeader from "./DataTableHeader"
 import DataTableBody from "./DataTableBody"
 import DataTableFooter from "./DataTableFooter"
-import DataTablePagination from "./DataTablePagination"
+import DataTablePagination, {
+  type DataTablePaginationState,
+} from "./DataTablePagination"
 
 export type DataTableProps<TData> = {
   table: Table<TData>
+  pagination: DataTablePaginationState
 }
 
 function DataTable<TData>(props: DataTableProps<TData>) {
-  const { table } = props
+  const { table, pagination } = props
 
   const { rows, footerGroups, headerGroups } = useMemo(() => {
     const headerGroups = table.getHeaderGroups()
@@ -32,11 +35,12 @@ function DataTable<TData>(props: DataTableProps<TData>) {
         <DataTableFooter footerGroups={footerGroups} />
       </table>
       <DataTablePagination
-        currentPage={1}
-        totalPages={2}
-        onNextClick={() => {}}
-        onPageClick={() => {}}
-        onPrevClick={() => {}}
+        currentPage={pagination.currentPage}
+        totalPages={pagination.totalPages}
+        onNextClick={pagination.onNextClick}
+        onLastClick={pagination.onLastClick}
+        onFirstClick={pagination.onFirstClick}
+        onPrevClick={pagination.onPrevClick}
       />
     </>
   )

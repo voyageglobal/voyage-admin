@@ -1,35 +1,34 @@
 import { memo } from "react"
 import cc from "classcat"
 
-export const DEFAULT_PAGES_TO_DISPLAY = 5
-
-export type DataTablePaginationProps = {
-  pagesToDisplay?: number
+export type DataTablePaginationState = {
   currentPage: number
   totalPages: number
-
+  onFirstClick: () => void
   onPrevClick: () => void
   onNextClick: () => void
-  onPageClick: (page: number) => void
+  onLastClick: () => void
 }
+
+export type DataTablePaginationProps = {} & DataTablePaginationState
 
 function DataTablePagination(props: DataTablePaginationProps) {
   const {
-    pagesToDisplay: _pagesToDisplay = DEFAULT_PAGES_TO_DISPLAY,
     onPrevClick,
     onNextClick,
+    onLastClick,
+    onFirstClick,
     currentPage,
     totalPages,
-    onPageClick,
   } = props
-
-  const pagesToDisplay = Math.min(_pagesToDisplay, totalPages)
 
   const isFirstPage = currentPage === 1
   const isLastPage = currentPage === totalPages
 
   const isPrevDisabled = isFirstPage
   const isNextDisabled = isLastPage
+  const isFirstDisabled = isFirstPage
+  const isLastDisabled = isLastPage
 
   const handlePrevClick = () => {
     if (isPrevDisabled) return
@@ -41,7 +40,17 @@ function DataTablePagination(props: DataTablePaginationProps) {
     onNextClick()
   }
 
-  if (pagesToDisplay <= 0) {
+  const handleFirstClick = () => {
+    if (isFirstDisabled) return
+    onFirstClick()
+  }
+
+  const handleLastClick = () => {
+    if (isLastDisabled) return
+    onLastClick()
+  }
+
+  if (totalPages <= 0) {
     return null
   }
 
@@ -49,28 +58,21 @@ function DataTablePagination(props: DataTablePaginationProps) {
     <div className={"flex w-full justify-end"}>
       <div className={"join"} data-testid={"data-table-pagination"}>
         <button
-          key={"prev-button"}
+          onClick={handleFirstClick}
+          className={cc(["btn join-item", { "btn-disabled": isPrevDisabled }])}
+        >
+          {"<<"}
+        </button>
+        <button
           onClick={handlePrevClick}
           className={cc(["btn join-item", { "btn-disabled": isPrevDisabled }])}
         >
-          «
+          {"<"}
         </button>
-        {[...Array(pagesToDisplay)].map((_, index) => {
-          const isCurrentPage = index + 1 === props.currentPage
-          const page = index + 1
-
-          return (
-            <button
-              key={index}
-              onClick={() => onPageClick(page)}
-              className={cc(["btn join-item", { "btn-active": isCurrentPage }])}
-            >
-              {index + 1}
-            </button>
-          )
-        })}
+        <button disabled={true} className={"btn btn-disabled join-item"}>
+          {currentPage}
+        </button>
         <button
-          key={"next-button"}
           onClick={handleNextClick}
           className={cc([
             "btn join-item",
@@ -79,7 +81,18 @@ function DataTablePagination(props: DataTablePaginationProps) {
             },
           ])}
         >
-          »
+          {">"}
+        </button>
+        <button
+          onClick={handleLastClick}
+          className={cc([
+            "btn join-item",
+            {
+              "btn-disabled": isNextDisabled,
+            },
+          ])}
+        >
+          {">>"}
         </button>
       </div>
     </div>
