@@ -1,8 +1,9 @@
-import { type Table } from "@tanstack/react-table"
-import DataTableHeader from "@src/features/dataTable/DataTableHeader"
-import DataTableBody from "@src/features/dataTable/DataTableBody"
-import DataTableFooter from "@src/features/dataTable/DataTableFooter"
 import { useMemo } from "react"
+import { type Table } from "@tanstack/react-table"
+import DataTableHeader from "./DataTableHeader"
+import DataTableBody from "./DataTableBody"
+import DataTableFooter from "./DataTableFooter"
+import DataTablePagination from "./DataTablePagination"
 
 export type DataTableProps<TData> = {
   table: Table<TData>
@@ -24,11 +25,20 @@ function DataTable<TData>(props: DataTableProps<TData>) {
   }, [table])
 
   return (
-    <table className={"table"}>
-      <DataTableHeader headerGroups={headerGroups} />
-      <DataTableBody rows={rows} />
-      <DataTableFooter footerGroups={footerGroups} />
-    </table>
+    <>
+      <table className={"table table-pin-cols table-md"}>
+        <DataTableHeader headerGroups={headerGroups} />
+        <DataTableBody rows={rows} />
+        <DataTableFooter footerGroups={footerGroups} />
+      </table>
+      <DataTablePagination
+        currentPage={1}
+        totalPages={2}
+        onNextClick={() => {}}
+        onPageClick={() => {}}
+        onPrevClick={() => {}}
+      />
+    </>
   )
 }
 
