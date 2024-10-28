@@ -9,15 +9,19 @@ function DataTableBody<TData>(props: TableBodyProps<TData>) {
 
   return (
     <tbody data-testid={"table-body"}>
-      {rows.map(row => (
-        <tr key={row.id}>
-          {row.getVisibleCells().map(cell => (
-            <td key={cell.id}>
-              {flexRender(cell.column.columnDef.cell, cell.getContext())}
-            </td>
-          ))}
-        </tr>
-      ))}
+      {rows.map(row => {
+        return (
+          <tr key={row.id}>
+            {row.getVisibleCells().map(cell => {
+              return (
+                <td key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              )
+            })}
+          </tr>
+        )
+      })}
     </tbody>
   )
 }

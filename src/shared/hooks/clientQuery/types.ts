@@ -5,6 +5,7 @@ export type QueryResult<TData> = {
 }
 
 export type PaginatedQueryResult<TData> = QueryResult<TData[]> & {
+  dataByPage: TData[][]
   hasMore: boolean
   total: number
   currentPage: number

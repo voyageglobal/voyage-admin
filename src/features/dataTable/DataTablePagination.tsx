@@ -69,9 +69,7 @@ function DataTablePagination(props: DataTablePaginationProps) {
         >
           {"<"}
         </button>
-        <button disabled={true} className={"btn btn-disabled join-item"}>
-          {currentPage}
-        </button>
+        <span className={"btn join-item no-animation"}>{currentPage}</span>
         <button
           onClick={handleNextClick}
           className={cc([

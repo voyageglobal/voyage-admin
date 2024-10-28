@@ -7,18 +7,18 @@ import { DataTablePaginationState } from "@src/features/dataTable/DataTablePagin
 export type GuidesTableProps = {}
 
 function GuidesTable(props: GuidesTableProps) {
-  const { table, isLoading, currentPage, total } = useGuidesTableData()
+  const { table, isLoading } = useGuidesTableData()
 
-  const pagination: DataTablePaginationState = useMemo(() => {
-    return {
-      currentPage: table.getState().pagination.pageIndex + 1,
-      totalPages: total,
-      onFirstClick: () => table.firstPage(),
-      onNextClick: () => table.nextPage(),
-      onPrevClick: () => table.previousPage(),
-      onLastClick: () => table.lastPage(),
-    }
-  }, [table, total])
+  // const pagination: DataTablePaginationState = useMemo(() => {
+  //   return {
+  //     currentPage: table.getState().pagination.pageIndex + 1,
+  //     totalPages: table.getPageCount(),
+  //     onFirstClick: () => table.firstPage(),
+  //     onNextClick: () => table.nextPage(),
+  //     onPrevClick: () => table.previousPage(),
+  //     onLastClick: () => table.lastPage(),
+  //   }
+  // }, [table])
 
   if (isLoading) {
     // TODO: Implement proper loading state
@@ -27,7 +27,17 @@ function GuidesTable(props: GuidesTableProps) {
 
   return (
     <div className={"p-4"} data-testid={"guides-table"}>
-      <DataTable table={table} pagination={pagination} />
+      <DataTable
+        table={table}
+        pagination={{
+          currentPage: table.getState().pagination.pageIndex + 1,
+          totalPages: table.getPageCount(),
+          onFirstClick: () => table.firstPage(),
+          onNextClick: () => table.nextPage(),
+          onPrevClick: () => table.previousPage(),
+          onLastClick: () => table.lastPage(),
+        }}
+      />
     </div>
   )
 }

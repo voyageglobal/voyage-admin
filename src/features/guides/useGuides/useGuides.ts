@@ -60,21 +60,26 @@ export function useGuides(
     },
   })
 
-  const { items, total, currentPage } = useMemo(() => {
+  const { items, total, currentPage, dataByPage } = useMemo(() => {
     const pages = data?.pages || []
+
+    const dataByPage = pages.map(page => page.items)
     const items: Guide[] = pages.flatMap(page => page.items)
+
     const lastPageIndex = pages.length - 1
     const totalItems = pages?.[lastPageIndex]?.total ?? 0
 
     return {
       items,
-      currentPage: pages.length ?? 0,
+      dataByPage,
+      currentPage: pages.length <= 0 ? DEFAULT_PAGE : pages.length,
       total: totalItems,
     }
   }, [data?.pages])
 
   return {
     data: items,
+    dataByPage,
     isLoading: isLoading,
     error: error || null,
     total,
