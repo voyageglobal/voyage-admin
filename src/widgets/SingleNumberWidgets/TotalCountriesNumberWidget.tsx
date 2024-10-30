@@ -1,5 +1,5 @@
 import { createSingleNumberWidget } from "@src/features/singleNumberWidget/createSingleNumberWidget"
-import * as statsService from "@src/features/stats/statsService"
+import * as statsService from "@src/entities/stats/statsService"
 
 const TotalCountriesNumberWidget = createSingleNumberWidget({
   icon: "🌍",
