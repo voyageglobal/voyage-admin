@@ -7,6 +7,9 @@ export type TotalStats = {
   totalGuides: number
 }
 
+// Time in seconds
+export const CACHE_TOTAL_STATS_TIME = 60
+
 export async function fetchTotalStats(): Promise<TotalStats> {
   try {
     const res = await fetch(getApiUrl("/stats/total"), {
@@ -14,7 +17,9 @@ export async function fetchTotalStats(): Promise<TotalStats> {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "no-store",
+      next: {
+        revalidate: CACHE_TOTAL_STATS_TIME,
+      },
     })
 
     const data: ApiResponse<TotalStats> = await res.json()
