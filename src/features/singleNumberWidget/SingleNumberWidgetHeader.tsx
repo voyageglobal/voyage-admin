@@ -12,16 +12,16 @@ function SingleNumberWidgetHeader(props: SingleNumberWidgetHeaderProps) {
 
   return (
     <div className={"flex w-full flex-row items-center"}>
-      {icon && <div className={"flex flex-none"}>{icon}</div>}
+      {icon && <div className={"stat-figure flex flex-none"}>{icon}</div>}
       <div
         className={
           "flex w-full flex-initial flex-col items-center justify-center"
         }
       >
-        <div className={"w-full text-center"}>
+        <div className={"stat-title w-full text-center"}>
           <Typography variant={"widgetTitle"}>{title}</Typography>
         </div>
-        <div className={"w-full text-center"}>
+        <div className={"stat-desc w-full text-center"}>
           <Typography variant={"widgetSubtitle"}>{subtitle}</Typography>
         </div>
       </div>

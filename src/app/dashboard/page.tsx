@@ -9,7 +9,6 @@ export type DashboardPageProps = {}
 export default async function DashboardPage(props: DashboardPageProps) {
   return (
     <section className={"mx-auto flex h-full flex-col"}>
-      <AppHeader />
       <div className={"grid grid-cols-2 gap-6 pt-6"}>
         <div>
           <TotalGuidesNumberWidget />

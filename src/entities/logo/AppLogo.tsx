@@ -1,4 +1,4 @@
-import React, { memo } from "react"
+import { memo } from "react"
 import AppLogoImage from "@src/entities/logo/AppLogoImage"
 import AppLogoTitle from "@src/entities/logo/AppLogoTitle"
 

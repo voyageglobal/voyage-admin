@@ -1,7 +1,7 @@
 import { memo, type ReactElement } from "react"
 import SingleNumberWidgetHeader from "./SingleNumberWidgetHeader"
 import SingleNumberWidgetContent from "./SingleNumberWidgetContent"
-import { type WidgetProps } from "@src/features/widget/types"
+import { type WidgetProps } from "@src/shared/components/Widget/types"
 
 export type SingleNumberWidgetProps = {
   title: string | ReactElement
@@ -15,10 +15,10 @@ function SingleNumberWidget(props: SingleNumberWidgetProps) {
   return (
     <div
       className={
-        "card h-full w-full bg-base-100 p-4 text-primary-content shadow-xl"
+        "card stats h-full w-full bg-base-100 text-primary-content shadow-xl"
       }
     >
-      <div className={"flex h-full w-full flex-col"}>
+      <div className={"stat flex h-full w-full flex-col"}>
         <SingleNumberWidgetHeader
           title={title}
           subtitle={subtitle}

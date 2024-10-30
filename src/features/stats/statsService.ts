@@ -14,6 +14,7 @@ export async function fetchTotalStats(): Promise<TotalStats> {
       headers: {
         "Content-Type": "application/json",
       },
+      cache: "no-store",
     })
 
     const data: ApiResponse<TotalStats> = await res.json()
