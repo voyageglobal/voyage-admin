@@ -1,4 +1,3 @@
-import AppHeader from "@src/features/appHeader/AppHeader"
 import TotalGuidesNumberWidget from "@src/widgets/SingleNumberWidgets/TotalGuidesNumberWidget"
 import TotalUsersNumberWidget from "@src/widgets/SingleNumberWidgets/TotalUsersNumberWidget"
 import TotalCitiesNumberWidget from "@src/widgets/SingleNumberWidgets/TotalCitiesNumberWidget"
