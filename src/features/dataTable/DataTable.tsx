@@ -15,15 +15,15 @@ export type DataTableProps<TData> = {
 function DataTable<TData>(props: DataTableProps<TData>) {
   const { table, pagination } = props
 
-  const { rows, footerGroups, headerGroups } = useMemo(() => {
+  const { rows } = table.getRowModel()
+
+  const { footerGroups, headerGroups } = useMemo(() => {
     const headerGroups = table.getHeaderGroups()
     const footerGroups = table.getFooterGroups()
-    const rows = table.getRowModel().rows
 
     return {
       headerGroups,
       footerGroups,
-      rows,
     }
   }, [table])
 
@@ -34,14 +34,16 @@ function DataTable<TData>(props: DataTableProps<TData>) {
         <DataTableBody rows={rows} />
         <DataTableFooter footerGroups={footerGroups} />
       </table>
-      <DataTablePagination
-        currentPage={pagination.currentPage}
-        totalPages={pagination.totalPages}
-        onNextClick={pagination.onNextClick}
-        onLastClick={pagination.onLastClick}
-        onFirstClick={pagination.onFirstClick}
-        onPrevClick={pagination.onPrevClick}
-      />
+      <div className={"py-2"}>
+        <DataTablePagination
+          currentPage={pagination.currentPage}
+          totalPages={pagination.totalPages}
+          onNextClick={pagination.onNextClick}
+          onLastClick={pagination.onLastClick}
+          onFirstClick={pagination.onFirstClick}
+          onPrevClick={pagination.onPrevClick}
+        />
+      </div>
     </>
   )
 }

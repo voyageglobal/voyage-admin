@@ -8,7 +8,7 @@ function GuidesPage(props: GuidesPageProps) {
   return (
     <div className={"p-4"}>
       <Typography variant={"h1"}>Guides</Typography>
-      <div className={"pt-4"}>
+      <div>
         <GuidesTable />
       </div>
     </div>

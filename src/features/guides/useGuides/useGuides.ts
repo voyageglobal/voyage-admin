@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query"
 import { type Guide, guidesService } from "@src/entities/guides"
 import { type PaginatedQueryResult } from "@src/shared/hooks/clientQuery"
-import { useMemo } from "react"
+import { useCallback, useMemo } from "react"
 import {
   type FetchGuidesParams,
   DEFAULT_PAGE,
@@ -29,8 +29,8 @@ export function useGuides(
   } = params ?? {}
 
   const {
-    fetchNextPage,
-    fetchPreviousPage,
+    fetchNextPage: _fetchNextPage,
+    fetchPreviousPage: _fetchPreviousPage,
     hasNextPage,
     error,
     data,
@@ -77,6 +77,24 @@ export function useGuides(
     }
   }, [data?.pages])
 
+  const fetchNextPage = useCallback<
+    PaginatedQueryResult<Guide>["fetchNextPage"]
+  >(
+    ({ page }) => {
+      return _fetchNextPage()
+    },
+    [_fetchNextPage],
+  )
+
+  const fetchPreviousPage = useCallback<
+    PaginatedQueryResult<Guide>["fetchPrevPage"]
+  >(
+    ({ page }) => {
+      return _fetchPreviousPage()
+    },
+    [_fetchPreviousPage],
+  )
+
   return {
     data: items,
     dataByPage,
@@ -86,8 +104,8 @@ export function useGuides(
     currentPage: currentPage,
     pageSize,
     hasMore: hasNextPage,
-    fetchNextPage: () => fetchNextPage(),
-    fetchPrevPage: () => fetchPreviousPage(),
+    fetchNextPage: fetchNextPage,
+    fetchPrevPage: fetchPreviousPage,
     isNextPageLoading: isFetchingNextPage,
   }
 }

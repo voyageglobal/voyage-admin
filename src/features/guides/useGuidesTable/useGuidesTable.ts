@@ -3,8 +3,9 @@ import {
   createColumnHelper,
   getCoreRowModel,
   useReactTable,
+  type PaginationState,
 } from "@tanstack/react-table"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { transformGuideToGuideTableData } from "./transformers"
 import { type GuideTableDataModel } from "./types"
 import {
@@ -51,20 +52,30 @@ const columns = [
   }),
 ]
 
-export function useGuidesTableData() {
-  const [pagination, setPagination] = useState({
-    pageIndex: DEFAULT_PAGE - 1,
-    pageSize: DEFAULT_GUIDE_PAGE_SIZE,
+export const DEFAULT_PAGINATION_STATE: PaginationState = {
+  pageIndex: DEFAULT_PAGE - 1,
+  pageSize: DEFAULT_GUIDE_PAGE_SIZE,
+}
+
+export function useGuidesTable() {
+  const [pagination, setPagination] = useState<PaginationState>(
+    DEFAULT_PAGINATION_STATE,
+  )
+
+  const { dataByPage, isLoading, total, fetchNextPage } = useGuides({
+    pageSize: pagination.pageSize,
   })
 
-  const { dataByPage, isLoading, total, fetchNextPage, fetchPrevPage } =
-    useGuides({
-      pageSize: pagination.pageSize,
-    })
+  useEffect(
+    function fetchPageIfPaginationChanged() {
+      fetchNextPage({ page: pagination.pageIndex + 1 })
+    },
+    [fetchNextPage, pagination.pageIndex],
+  )
 
   const tableData = useMemo(() => {
     const currentPageData = dataByPage?.[pagination.pageIndex] ?? []
-    console.log("currentPageData", currentPageData)
+
     return transformGuideToGuideTableData(currentPageData ?? [])
   }, [dataByPage, pagination.pageIndex])
 
@@ -75,25 +86,9 @@ export function useGuidesTableData() {
     rowCount: total,
     manualPagination: true,
     autoResetPageIndex: false,
-    onPaginationChange: newPagination => {
-      console.log("newPagination", typeof newPagination)
-      if (typeof newPagination !== "function") {
-        if (newPagination.pageIndex !== pagination.pageIndex) {
-          if (newPagination.pageIndex > pagination.pageIndex) {
-            fetchNextPage({ page: newPagination.pageIndex + 1 })
-          } else {
-            fetchPrevPage({ page: newPagination.pageIndex + 1 })
-          }
-        }
-      }
-
-      return setPagination(newPagination)
-    },
+    onPaginationChange: setPagination,
     initialState: {
-      pagination: {
-        pageIndex: DEFAULT_PAGE - 1,
-        pageSize: DEFAULT_GUIDE_PAGE_SIZE,
-      },
+      pagination: DEFAULT_PAGINATION_STATE,
     },
     state: {
       pagination,
