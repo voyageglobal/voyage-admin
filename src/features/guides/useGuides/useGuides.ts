@@ -9,7 +9,7 @@ import {
   DEFAULT_ORDER_BY,
   DEFAULT_ORDER_DIRECTION,
   DEFAULT_SEARCH_STRING,
-} from "@src/entities/guides/guidesService"
+} from "@src/entities/guides"
 
 export const GUIDES_QUERY_KEY = "guides"
 

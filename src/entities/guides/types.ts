@@ -1,3 +1,5 @@
+import type { ApiResponsePaginated } from "@src/shared/api"
+
 export type GuideCategory = {
   key: string
   name: string
@@ -24,4 +26,13 @@ export type Guide = {
   categories: GuideCategory[]
   cities: GuideCity[]
   countries: GuideCountry[]
+}
+
+export type FetchGuidesResponse = ApiResponsePaginated<Guide>
+export type FetchGuidesParams = {
+  page?: number
+  pageSize?: number
+  orderBy?: string
+  orderDirection?: "asc" | "desc"
+  searchString?: string
 }
