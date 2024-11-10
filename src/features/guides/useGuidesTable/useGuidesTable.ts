@@ -4,6 +4,7 @@ import {
   getCoreRowModel,
   useReactTable,
   type PaginationState,
+  type SortingState,
 } from "@tanstack/react-table"
 import { useEffect, useMemo, useState } from "react"
 import { transformGuideToGuideTableData } from "./transformers"
@@ -18,36 +19,43 @@ const columns = [
   columnHelper.accessor("title", {
     id: "title",
     header: "Title",
+    enableSorting: true,
     cell: row => row.getValue(),
   }),
   columnHelper.accessor("author", {
     id: "author",
     header: "Author",
+    enableSorting: true,
     cell: row => row.getValue(),
   }),
   columnHelper.accessor("categories", {
     id: "categories",
     header: "Categories",
+    enableSorting: false,
     cell: row => row.getValue(),
   }),
   columnHelper.accessor("countries", {
     id: "countries",
     header: "Countries",
+    enableSorting: false,
     cell: row => row.getValue(),
   }),
   columnHelper.accessor("cities", {
     id: "cities",
     header: "Cities",
+    enableSorting: false,
     cell: row => row.getValue(),
   }),
   columnHelper.accessor("createdAt", {
     id: "createdAt",
     header: "Created At",
+    enableSorting: false,
     cell: row => row.getValue(),
   }),
   columnHelper.accessor("updatedAt", {
     id: "updatedAt",
     header: "Updated At",
+    enableSorting: false,
     cell: row => row.getValue(),
   }),
 ]
@@ -61,6 +69,7 @@ export function useGuidesTable() {
   const [pagination, setPagination] = useState<PaginationState>(
     DEFAULT_PAGINATION_STATE,
   )
+  const [sorting, setSorting] = useState<SortingState>([])
 
   const { dataByPage, isLoading, total, fetchNextPage } = useGuides({
     pageSize: pagination.pageSize,
@@ -72,6 +81,8 @@ export function useGuidesTable() {
     },
     [fetchNextPage, pagination.pageIndex],
   )
+
+  console.log("sorting", sorting)
 
   const tableData = useMemo(() => {
     const currentPageData = dataByPage?.[pagination.pageIndex] ?? []
@@ -87,11 +98,15 @@ export function useGuidesTable() {
     manualPagination: true,
     autoResetPageIndex: false,
     onPaginationChange: setPagination,
+    manualSorting: true,
+    onSortingChange: setSorting,
+    enableMultiSort: false,
     initialState: {
       pagination: DEFAULT_PAGINATION_STATE,
     },
     state: {
       pagination,
+      sorting: sorting,
     },
   })
 

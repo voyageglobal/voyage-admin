@@ -60,12 +60,14 @@ function DataTablePagination(props: DataTablePaginationProps) {
         <button
           onClick={handleFirstClick}
           className={cc(["btn join-item", { "btn-disabled": isPrevDisabled }])}
+          aria-label={"Go to first page of the table"}
         >
           {"<<"}
         </button>
         <button
           onClick={handlePrevClick}
           className={cc(["btn join-item", { "btn-disabled": isPrevDisabled }])}
+          aria-label={"Go to previous page of the table"}
         >
           {"<"}
         </button>
@@ -78,6 +80,7 @@ function DataTablePagination(props: DataTablePaginationProps) {
               "btn-disabled": isNextDisabled,
             },
           ])}
+          aria-label={"Go to next page of the table"}
         >
           {">"}
         </button>
@@ -89,6 +92,7 @@ function DataTablePagination(props: DataTablePaginationProps) {
               "btn-disabled": isNextDisabled,
             },
           ])}
+          aria-label={"Go to last page of the table"}
         >
           {">>"}
         </button>
