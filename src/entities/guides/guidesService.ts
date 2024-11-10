@@ -1,25 +1,12 @@
+import { appendSearchParams, getApiUrl, isSuccess } from "@src/shared/api"
+import type { FetchGuidesParams, FetchGuidesResponse } from "./types"
 import {
-  type ApiResponsePaginated,
-  appendSearchParams,
-  getApiUrl,
-  isSuccess,
-} from "@src/shared/api"
-import { type Guide } from "./types"
-
-export const DEFAULT_GUIDE_PAGE_SIZE = 20
-export const DEFAULT_PAGE = 1
-export const DEFAULT_ORDER_BY = "createdAt"
-export const DEFAULT_ORDER_DIRECTION = "desc"
-export const DEFAULT_SEARCH_STRING = ""
-
-export type FetchGuidesResponse = ApiResponsePaginated<Guide>
-export type FetchGuidesParams = {
-  page?: number
-  pageSize?: number
-  orderBy?: string
-  orderDirection?: "asc" | "desc"
-  searchString?: string
-}
+  DEFAULT_GUIDE_PAGE_SIZE,
+  DEFAULT_ORDER_BY,
+  DEFAULT_ORDER_DIRECTION,
+  DEFAULT_PAGE,
+  DEFAULT_SEARCH_STRING,
+} from "./constants"
 
 export async function fetchGuides(
   params: FetchGuidesParams = {},

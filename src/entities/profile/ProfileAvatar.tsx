@@ -15,7 +15,11 @@ function ProfileAvatar(props: ProfileAvatarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <div className={"dropdown dropdown-end"}>
+    <div
+      className={
+        "dropdown dropdown-end focus-within:ring-2 focus-within:ring-black"
+      }
+    >
       <button
         onClick={() => {
           setIsMenuOpen(prev => !prev)
@@ -37,6 +41,7 @@ function ProfileAvatar(props: ProfileAvatarProps) {
           }
         }}
         className={"btn btn-circle btn-ghost h-full w-auto"}
+        aria-label={"Open profile menu"}
       >
         <Avatar imageUrl={imageUrl} size={"large"} />
       </button>

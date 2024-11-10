@@ -1,7 +1,12 @@
 import { type Guide } from "@src/entities/guides"
+import { type SortingState } from "@tanstack/react-table"
 import { type GuideTableDataModel } from "./types"
-
-export const DEFAULT_AUTHOR = "Unknown voyageur"
+import { DEFAULT_AUTHOR } from "./constants"
+import { getSortableColumnModelFieldName } from "@src/features/guides/useGuidesTable/utils"
+import {
+  DEFAULT_ORDER_BY,
+  DEFAULT_ORDER_DIRECTION,
+} from "@src/entities/guides/constants"
 
 export function transformGuideToGuideTableData(
   guides: Guide[],
@@ -25,4 +30,28 @@ export function transformGuideToGuideTableData(
   })
 
   return tableData
+}
+
+export function transformClientSortingToServer(sorting: SortingState): {
+  orderBy: string
+  orderDirection: "asc" | "desc"
+} {
+  const sort = sorting[0]
+
+  if (!sort) {
+    return {
+      orderBy: DEFAULT_ORDER_BY,
+      orderDirection: DEFAULT_ORDER_DIRECTION,
+    }
+  }
+
+  const orderDirection = sort.desc ? "desc" : "asc"
+  const columnName = sort.id
+  const orderBy =
+    getSortableColumnModelFieldName(columnName) || DEFAULT_ORDER_BY
+
+  return {
+    orderBy,
+    orderDirection,
+  }
 }
