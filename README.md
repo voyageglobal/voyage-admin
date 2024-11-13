@@ -61,3 +61,7 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+**Demo screenshots**:
+![Dashboard page](https://github.com/user-attachments/assets/b32b1b0d-6f01-413e-8606-d3203affd2ca)
+![Guides page](https://github.com/user-attachments/assets/2628bdd4-7949-4a9f-b00f-3862d78f8e57)
+
